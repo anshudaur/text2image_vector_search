@@ -21,10 +21,10 @@ class AppInterface:
                 collection_name="images",
                 query_vector=query_vector,
                 with_payload=True,
-                limit=5
+                limit=6
             )
             if not results:
-                return []
+                return [], []
 
             for hit in results:
                 img_url = hit.payload['url']
@@ -44,7 +44,11 @@ class AppInterface:
         if st.button("Search"):
             images, scores = self.process_text_to_image(query_text)
             if images:
-                for image, score in zip(images, scores):
-                    st.image(image, caption=score)
+                columns_per_row = 3
+                # Create rows of images, 3 per row
+                for i in range(0, len(images), columns_per_row):
+                    cols = st.columns(columns_per_row)  # Create columns for each row
+                    for col, image, score in zip(cols, images[i:i + columns_per_row], scores[i:i + columns_per_row]):
+                        col.image(image, caption=score, use_column_width=True)
             else:
                 st.write("No results found.")

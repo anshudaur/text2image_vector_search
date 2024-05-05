@@ -3,7 +3,7 @@ import logging
 from qdrant_client import QdrantClient
 from dotenv import load_dotenv
 # from embedding_manager import EmbeddingManager # Uncomment if needed
-from AppInterface import AppInterface
+from app_interface import AppInterface
 
 if __name__ == "__main__":
     # Load environment variables from the .env file
