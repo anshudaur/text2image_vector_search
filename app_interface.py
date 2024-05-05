@@ -1,6 +1,6 @@
 import os
 import logging
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image
 import urllib.request
 from sentence_transformers import SentenceTransformer
 from qdrant_client.http import models
