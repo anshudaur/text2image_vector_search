@@ -90,29 +90,3 @@ class AppInterface:
                     ],
         )
         iface.launch()
-
-    
-    """def launch(self):
-        def wrapped_function(query_text):
-            try:
-                images, formatted_scores = self.process_text_to_image(query_text)
-                if not formatted_scores or not all(isinstance(score, list) for score in formatted_scores):
-                    logging.error("Scores are not properly formatted as lists.")
-                    return [], []
-                return images, formatted_scores
-            except Exception as e:
-                logging.error(f"Unexpected error: {e}")
-                return [], []
-
-    
-        iface = gr.Interface(
-            fn=wrapped_function,  # Use a wrapped function to handle multiple outputs
-            inputs=gr.Textbox(label="Query Text"),
-            outputs=[
-                gr.Gallery(label="Relevant Images"),  # Shows images
-                gr.Textbox(label="Scores")          # Displays scores in a table
-            ],
-            title="Text to Image Vector Search with Qdrant",
-            description="Enter text to find matching images and view similarity scores"
-        )
-        iface.launch()"""
