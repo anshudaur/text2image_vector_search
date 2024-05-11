@@ -20,7 +20,7 @@ if __name__ == "__main__":
     )
     
    # Load data from a TSV file
-    data = pd.read_csv('data/images.tsv', sep='\t', header=None).reset_index(drop=True)  # Corrected reset_index
+    data = pd.read_csv('data/images.csv', header=None).reset_index(drop=True)  # Corrected reset_index
     logging.info(f"Data Loaded: {data.shape}\n{data.head()}")
 
     # Initialize and use the EmbeddingManager
