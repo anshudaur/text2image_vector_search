@@ -4,6 +4,8 @@ import urllib.request
 from PIL import Image
 from qdrant_client.http import models as rest
 from sentence_transformers import SentenceTransformer
+from qdrant_client.models import Distance, VectorParams
+
 
 class EmbeddingManager:
     def __init__(self, qdrant_client, model_path="clip-ViT-B-32"):
@@ -11,16 +13,12 @@ class EmbeddingManager:
         self.model = SentenceTransformer(model_path)
         logging.basicConfig(level=logging.INFO)  # Configure logging at the class level if not configured globally
 
-    def download_file(self, url):
-        os.makedirs("./images", exist_ok=True)
-        basename = os.path.basename(url)
-        target_path = os.path.join("./images", basename)
+    def get_file(self, image_path):
+        #os.makedirs("./images", exist_ok=True)
+        target_path = os.path.join("/home/anshu/workspace/text2img/data/images", image_path)
         if not os.path.exists(target_path):
-            try:
-                urllib.request.urlretrieve(url, target_path)
-            except urllib.error.HTTPError as e:
-                logging.error(f"Failed to download {url}: {e}")
-                return None
+            logging.error(f"Invalid path{image_path}: {e}")
+            return None
         return target_path
 
     def upsert_to_db(self, points):
@@ -37,20 +35,33 @@ class EmbeddingManager:
                 ]
             )
             logging.info(f"{len(points)} images encoded & upserted.")
+    
+    def create_collection(self, collection_name):
+        self.qdrant_client.recreate_collection(collection_name=collection_name,
+                                    vectors_config = {
+                                        "image": VectorParams(size = 512, 
+                                                              distance = Distance.COSINE ) 
+                                        })
+        logging.info(f"Collection {collection_name} created ") 
 
     def process_and_upload_images(self, data):
+        self.create_collection(collection_name="images_new")
+        
         points = []
-        total_images = min(15000, len(data))  # Process up to 15000 images or total in data
+        total_images =  len(data['img_file'])  
         for i in range(total_images):
-            img = self.download_file(data.iloc[i, 1])
+            #img = self.get_file(data[i])
+            img = os.path.join("images", data['img_file'][i])
+            
             if img:
                 try:
                     image = Image.open(img)
-                    embedding = self.model.encode(image)
+                    embedding = self.model.encode(image).tolist()
+                    
                     points.append({
                         "id": i,
                         "vector": embedding,
-                        "payload": {"url": data.iloc[i, 1]}
+                        "payload": {"url": data['image_urls'][i], "name": data['img_file'][i]}
                     })
                 except Exception as e:
                     logging.error(f"Error processing image {img}: {e}")

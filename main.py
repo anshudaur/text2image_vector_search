@@ -8,7 +8,7 @@ from app_interface import AppInterface
 
 if __name__ == "__main__":
     # Load environment variables from the .env file
-    load_dotenv(os.path.join(os.path.dirname(__file__), "../qdrant.env"))
+    load_dotenv(os.path.join(os.path.dirname(__file__), "qdrant.env"))
 
     # Setup logging
     logging.basicConfig(level=logging.INFO)
@@ -19,16 +19,17 @@ if __name__ == "__main__":
         api_key=os.getenv('QDRANT_API_KEY'),
     )
     
-   # Load data from a TSV file
-    data = pd.read_csv('data/images.csv', header=None).reset_index(drop=True)  # Corrected reset_index
+    # Load data from a TSV file
+    data = pd.read_csv('data/images.csv')
     logging.info(f"Data Loaded: {data.shape}\n{data.head()}")
-
+    logging.info(len(data['img_file']))
     # Initialize and use the EmbeddingManager
     try:
         embedding_manager = EmbeddingManager(qdrant_client)  # Initialize EmbeddingManager
         embedding_manager.process_and_upload_images(data)  # Process and upload images
     except Exception as e:
-        logging.error(f"Error processing and uploading images: {e}")
+        logging.error(f"Error processing and uploading images: {e} ")
+    
 
     # Initialize and configure the Streamlit-based interface
     try:

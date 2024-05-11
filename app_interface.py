@@ -18,7 +18,7 @@ class AppInterface:
         try:
             query_vector = self.model.encode(query_text).tolist()
             results = self.qdrant_client.search(
-                collection_name="images",
+                collection_name="images_new",
                 query_vector=query_vector,
                 with_payload=True,
                 limit=6
