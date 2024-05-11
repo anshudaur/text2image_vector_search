@@ -15,9 +15,9 @@ class EmbeddingManager:
 
     def get_file(self, image_path):
         #os.makedirs("./images", exist_ok=True)
-        target_path = os.path.join("/home/anshu/workspace/text2img/data/images", image_path)
+        target_path = os.path.join("images", image_path)
         if not os.path.exists(target_path):
-            logging.error(f"Invalid path{image_path}: {e}")
+            logging.error(f"Invalid path {target_path}")
             return None
         return target_path
 
