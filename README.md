@@ -4,9 +4,9 @@
 
 In the following notebook, we explore the images from the [data](data/images.tsv) created from the open_source dataset. Follow the steps in the notebook
 
-```
+
 [Data Exploration](notebooks/data_exploration.ipynb)
-```
+
 
 ## Start Application : 
 
