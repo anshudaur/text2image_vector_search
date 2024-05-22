@@ -44,30 +44,31 @@ class EmbeddingManager:
                                         })
         logging.info(f"Collection {collection_name} created ") 
 
-    def process_and_upload_images(self, data):
-        self.create_collection(collection_name="images_new")
-        
+    def process_and_upload_images(self, collection_name, data):
         points = []
+        logging.info("Begin uploading images and embeddings !!")
         total_images =  len(data['img_file'])  
         for i in range(total_images):
-            #img = self.get_file(data[i])
-            img = os.path.join("images", data['img_file'][i])
-            
+            img_file = data['img_file'][i]
+            logging.info(f"Image : {img_file}")
+            img = self.get_file(img_file)
+            img_url =  data['image_urls'][i]
             if img:
                 try:
                     image = Image.open(img)
-                    embedding = self.model.encode(image).tolist()
-                    
+                    embedding = self.model.encode(image)
+                    logging.info(f"embedding shape :{embedding.shape}" )
                     points.append({
                         "id": i,
                         "vector": embedding,
-                        "payload": {"url": data['image_urls'][i], "name": data['img_file'][i]}
+                        "payload": {"url": img_url, "name": img_file}
                     })
+                    image.close()
                 except Exception as e:
                     logging.error(f"Error processing image {img}: {e}")
 
             if (i + 1) % 1000 == 0 or i == total_images - 1:
-                self.upsert_to_db(points)
+                self.upsert_to_db(points, collection_name)
                 points = []
 
         logging.info("All embeddings upserted to vector database.")
