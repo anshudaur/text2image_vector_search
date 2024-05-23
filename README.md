@@ -62,7 +62,7 @@ http://localhost:8501/
     1. Text sensitive : Examples of images with and without 'a photo of' , as you can see the order of the cats and ranking changes. The reason for this is that the model was trained to align image embeddings with text embeddings of captions containing 'a photo of ' . When I add the text in the app interface, the scores improves :
 
     [Cat](images/cat.png) 
-    [Cat](images/a_photo_of_cat.png)
+    [A Photo of Cat](images/a_photo_of_cat.png)
 
     2. The current scores are cosine similarity scores returned by qdrant. The cosine scoring is low even for the semantically similar text using 'a photo of' . 
 
@@ -112,11 +112,11 @@ Recall@K measures the proportion of relevant images that appear in the top k res
 
 ## System Architecture
 
-[Current System Architecture](images/current_arch.png)
+![Current System Architecture](images/current_arch.png)
 
 Here’s a scaled up high-level block diagram for the architecture of a text-to-image search system for real time system :
 
-[Modified System Architecture](images/modified_arch.png) 
+![Modified System Architecture](images/modified_arch.png) 
 
 ## Challenges
 
