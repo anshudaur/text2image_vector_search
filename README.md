@@ -2,7 +2,7 @@
 
 ## Data Exploration 
 
-In the following notebook, I explored and cleaned the valid images from the [data](data/images.tsv) created from the open_source dataset. Follow the steps in the notebook : 
+In the following notebook, I explored and cleaned the valid images from the [data](data/images.csv) created from the open_source dataset. Follow the steps in the notebook : 
 
 [Data Exploration](notebooks/data_exploration.ipynb)
 
