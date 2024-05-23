@@ -52,17 +52,17 @@ http://localhost:8501/
 - Provide a set of example queries that effectively showcase the capabilities of your implemented system. These queries should yield relevant images, demonstrating the accuracy and efficiency of your text2image search solution. Here are some of the examples :
 
     1. For the text "dogs", the results with multiple dogs are ranked higher
-    [Dogs](images/dogs.png)
+    ![Dogs](images/dogs.png)
 
     2. For the text "black car", the top 3 results exactly match a black car
-    [Black Car](images/black_car.png)
+    ![Black Car](images/black_car.png)
 
 - Provide examples of queries that do not perform well, accompanied by explanations outlining the shortcomings of the system.
 
     1. Text sensitive : Examples of images with and without 'a photo of' , as you can see the order of the cats and ranking changes. The reason for this is that the model was trained to align image embeddings with text embeddings of captions containing 'a photo of ' . When I add the text in the app interface, the scores improves :
 
-    [Cat](images/cat.png) 
-    [A Photo of Cat](images/a_photo_of_cat.png)
+    ![Cat](images/cat.png) 
+    ![A Photo of Cat](images/a_photo_of_cat.png)
 
     2. The current scores are cosine similarity scores returned by qdrant. The cosine scoring is low even for the semantically similar text using 'a photo of' . 
 
