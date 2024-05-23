@@ -43,19 +43,14 @@ if __name__ == "__main__":
         data = pd.read_csv('data/images.csv')
         logging.info(f"Data Loaded: {data.shape}\n{data.head()}")
         logging.info(len(data['img_file']))
-        
+            
         # Initialize and use the EmbeddingManager
-        logging.info("Uploading vectors to Qdrant ")
         try:
             embedding_manager = EmbeddingManager(qdrant_client)  # Initialize EmbeddingManager
             embedding_manager.process_and_upload_images(collection_name, data)  # Process and upload images
         except Exception as e:
             logging.error(f"Error processing and uploading images: {e} ")
-    
-    # Initialize and configure the Streamlit-based interface
-    logging.info("Launching Text2Img Search Interface")
-    try:
-        app_interface = AppInterface(qdrant_client, collection_name)
-        app_interface.launch()
-    except Exception as e:
-        logging.error(f"An error occurred: {e}")
+        logging.info("Collection created")
+    else:
+        logging.info("Collection already created")
+        
