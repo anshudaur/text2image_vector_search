@@ -15,6 +15,11 @@ class AppInterface:
     def process_text_to_image(self, query_text):
         images = []
         scores = []
+        
+        # Check if 'a photo of' is present in the query text
+        if 'a photo of' not in query_text:
+            query_text = 'a photo of ' + query_text
+            
         try:
             query_vector = self.model.encode(query_text).tolist()
             results = self.qdrant_client.search(
