@@ -3,7 +3,7 @@ qdrant-client==1.9.0
 sentence_transformers==2.2.2
 tqdm==4.66.3
 sentencepiece==0.1.99
-transformers==4.48.0
+transformers==4.50.0
 gradio==5.11.0
 pandas
 python-dotenv
