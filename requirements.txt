@@ -2,7 +2,7 @@ datasets==2.11.0
 qdrant-client==1.9.0
 sentence_transformers==2.2.2
 tqdm==4.66.3
-sentencepiece==0.1.99
+sentencepiece==0.2.1
 transformers==4.53.0
 gradio
 pandas
